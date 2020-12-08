@@ -4,3 +4,21 @@
 margin-top: 10px; 
 }
 
+#flex { 
+    display: flex;
+    justify-content: space-between;
+    margin-left: 50px;
+    margin-right: 50px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.starting { 
+    margin: 20px;
+}
+
+.hr3 {
+    border: 0;
+    height: 7px;
+    background-image: linear-gradient(to right, transparent, #343a40, transparent);  
+  }
