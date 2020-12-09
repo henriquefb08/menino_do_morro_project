@@ -10,29 +10,61 @@ window.onload = function () {
     }
 
     function checkImpact() {
+
         for (let i = 0; i < myGameArea.myObstacles.length; i += 1) {
-            if (boy.crashWith(myGameArea.myObstacles[0] === "criminalidade" )) { 
-                myGameArea.myObstacles.splice(0,1)
-                myGameArea.score -= 4;
+            if (boy.crashWith(myGameArea.myObstacles[i])) { 
+                        myGameArea.score += myGameArea[myGameArea.myObstacles[i].type];
+                        myGameArea.myObstacles.splice(i,1)
+                    }
+            if (myGameArea.score > 1 && myGameArea.score < 5 ) {
+
+                myGameArea.context.fillStyle = 'black'; 
+                myGameArea.context.font = '17px Arial';
+                myGameArea.context.fillText('Boa! Foco nos seus objetivos!', 30, 470);
             }
-            else if (boy.crashWith(myGameArea.myObstacles[0] === "desigualdade" )) { 
-                myGameArea.myObstacles.splice(0,1)
-                myGameArea.score -=10;
-        }
-            else if (boy.crashWith(myGameArea.myObstacles[0] === "preconceito")) { 
-            myGameArea.myObstacles.splice(0,1)
-            myGameArea.score += 1;
+            if (myGameArea.score > 5 && myGameArea.score < 10 ) {
+
+                myGameArea.context.fillStyle = 'black'; 
+                myGameArea.context.font = '16px Arial';
+                myGameArea.context.fillText('Com o tempo você consegue entrar na Faculdade!', 30, 470);
+            }
+
+            if (myGameArea.score > 10 && myGameArea.score < 15 ) {
+
+                myGameArea.context.fillStyle = 'black'; 
+                myGameArea.context.font = '16px Arial';
+                myGameArea.context.fillText('Cuidado não pense em desistir agora!', 30, 470);
+            }
+            if (myGameArea.score > 15 && myGameArea.score < 20 ) {
+
+                myGameArea.context.fillStyle = 'black'; 
+                myGameArea.context.font = '16px Arial';
+                myGameArea.context.fillText('Você está cansado mas o amanhã será melhor!', 30, 470);
+            }
+            if (myGameArea.score > 20 && myGameArea.score < 30 ) {
+
+                myGameArea.context.fillStyle = 'black'; 
+                myGameArea.context.font = '16px Arial';
+                myGameArea.context.fillText('Você está evoluindo muito, até foi promovido!', 30, 470);
+            }
+            if (myGameArea.score > 20 && myGameArea.score < 30 ) {
+
+                myGameArea.context.fillStyle = 'black'; 
+                myGameArea.context.font = '16px Arial';
+                myGameArea.context.fillText('Você está ganhando muito conhecimento!', 30, 470);
+            }
+            if (myGameArea.score <= 0) { 
+
+                
+                myGameArea.gameOver();
+                break
+            }
+                    
+              
+            }
          }
-         else if (boy.crashWith(myGameArea.myObstacles[0] === "cash")) { 
-            myGameArea.myObstacles.splice(0,1)
-            myGameArea.score += 10;
-         }
-         else { 
-            myGameArea.myObstacles.splice(0,1)
-            myGameArea.score += 3;
-         }
-    }
-}
+
+   
    
 
     function updateGameArea() {
@@ -42,8 +74,9 @@ window.onload = function () {
         myGameArea.frames += 1;
         updateObstacles();
         boy.draw();
-        checkImpact();
         myGameArea.counting();
+        checkImpact();
+        
         
     }
 
@@ -60,7 +93,7 @@ window.onload = function () {
             let maxPos = 390;
             let pos = Math.floor(Math.random() * (maxPos - minPos) + minPos)
             myGameArea.myObstacles.push(new Obstaculo(problem[randomProblem], 800, pos))
-            
+           
         }
 
         myGameArea.myObstacles.forEach(pbm => {
@@ -76,10 +109,10 @@ window.onload = function () {
         canvas: document.querySelector('#quadro'),
         // pontuações iniciais
         estudo: 2,
-        jobcash: 1,
-        desigualdade: -10,
-        preconceito: -3,
-        criminalidade: -5,
+        cash: 2,
+        desigualdade: -3,
+        preconceito: -2,
+        criminalidade: -1,
         myObstacles: [],
         frames: 0,
         level: 1,
@@ -92,6 +125,10 @@ window.onload = function () {
             setInterval(updateGameArea, 100)
         },
 
+        stop: function () {
+            clearInterval(myGameArea.context);
+            setTimeout(this.gameOver)
+        },
 
         clear: function () {
             this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -103,7 +140,20 @@ window.onload = function () {
             this.context.font = '38px Arial'; 
             this.context.fillText(`Life: ${this.score}`, 650, 450);
 
-        }
+        }, 
+
+        gameOver: function (){
+            myGameArea.clear();
+        myGameArea.context.textAlign = 'center'
+        myGameArea.context.fillStyle = 'black'; 
+        myGameArea.context.fillRect(0, 0, myGameArea.canvas.width, myGameArea.canvas.height);
+        myGameArea.context.fillStyle = 'red'; 
+        myGameArea.context.font = '24px Arial';
+        myGameArea.context.fillText('GAME OVER',myGameArea.canvas.width/2, myGameArea.canvas.height* 2/10);
+        myGameArea.context.fillText('Você acabou perdendo sua única chance,',myGameArea.canvas.width/2, myGameArea.canvas.height *4/10);
+        myGameArea.context.fillText('assim como um jovem de periferia que perde sua vida.',myGameArea.canvas.width/2, myGameArea.canvas.height*5/10);
+        myGameArea.context.fillText('Por conta da criminalidade, preconceito ou desigualdade..',myGameArea.canvas.width/2, myGameArea.canvas.height * 6/10);    
+    }
 
     }
     // BackGround
@@ -114,7 +164,7 @@ window.onload = function () {
             this.img.src = source;
             this.x = 0;
             this.y = 0;
-            this.speed = -7;
+            this.speed = -13;
         }
         move() {
             this.x += this.speed;
@@ -142,16 +192,23 @@ window.onload = function () {
             this.img3 = new Image();
             this.img3.src = source3;
             this.x = 50;
-            this.y = 300;
+            this.y = 200;
             this.width = width;
             this.height = height;
             this.speed = 10
         }
         draw() {
 
-            //Criar if para leve para troca de skin 
+            if(myGameArea.score > 0 && myGameArea.score <= 11 ) { 
             myGameArea.context.drawImage(this.img1, this.x, this.y, this.width, this.height);
+            }
 
+            if(myGameArea.score > 11 && myGameArea.score <= 21 ) { 
+                myGameArea.context.drawImage(this.img2, this.x, this.y, this.width, this.height);
+                }
+                if(myGameArea.score > 21 && myGameArea.score < 100 ) { 
+                    myGameArea.context.drawImage(this.img3, this.x, this.y, this.width, this.height);
+                    }
         }
 
         moveRight() {
@@ -204,7 +261,7 @@ window.onload = function () {
     }
 
     // 
-    const boy = new Menino('images_mdm/menino2.png', 'source2', 'source3', 90, 100)
+    const boy = new Menino('images_mdm/car1.png', 'images_mdm/car2.png', 'images_mdm/car3.png', 120, 160)
 
 
     document.addEventListener('keydown', (e) => {
@@ -229,9 +286,9 @@ window.onload = function () {
         constructor(type, x, y) {
             this.x = x;
             this.y = y;
-            this.width = 90;
-            this.height = 100;
-            this.speed = 10;
+            this.width = 80;
+            this.height = 90;
+            this.speed = 12;
             this.type = type;
         }
         // problemas

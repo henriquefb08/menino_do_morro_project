@@ -7,14 +7,30 @@ margin-top: 10px;
 #flex { 
     display: flex;
     justify-content: space-between;
-    margin-left: 50px;
-    margin-right: 50px;
+    margin-left: 70px;
+    margin-right: 70px;
     margin-top: 30px;
     margin-bottom: 30px;
 }
 
 .starting { 
     margin: 20px;
+}
+
+.como-jogar { 
+    display: flex;
+    
+    
+    
+}
+.como-jogar img{
+    
+    width: 1200px;
+    height: auto;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+    
 }
 
 .hr3 {
