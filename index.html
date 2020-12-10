@@ -65,7 +65,19 @@
   <div class="como-jogar"> <img src="images_mdm/page/comoJogar.png" alt="como jogar?"> </div>
 
   <div class="d-flex justify-content-center starting ">
+    <audio scr="audio/LevantaeAnda.mp3" autoplay> </audio> 
     <button id="start-button" class="btn btn-dark"> Começar jogo</button>
+    <script> 
+    const button = document.getElementById('start-button')
+    button.addEventListener('click', function(){ 
+      const audio = document.querySelector('audio')
+      audio.currentTime = 0.1
+      audio.play()
+    })
+    
+    </script>
+  
+  
   </div>
 
   <div class="d-flex justify-content-center p-3 mb-2 bg-dark text-white"  >

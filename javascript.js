@@ -1,74 +1,83 @@
 window.onload = function () {
     document.getElementById("start-button").onclick = function () {
         startGame();
+        foo.start();
+        foo.stop();
+        foo.start();
+        foo.init(100, false);
+        foo.remove();
     };
     // funnções bases
     function startGame() {
         myGameArea.start();
-
-
+        
     }
 
     function checkImpact() {
-
         for (let i = 0; i < myGameArea.myObstacles.length; i += 1) {
-            if (boy.crashWith(myGameArea.myObstacles[i])) { 
-                        myGameArea.score += myGameArea[myGameArea.myObstacles[i].type];
-                        myGameArea.myObstacles.splice(i,1)
-                    }
-            if (myGameArea.score > 1 && myGameArea.score < 5 ) {
-
-                myGameArea.context.fillStyle = 'black'; 
-                myGameArea.context.font = '17px Arial';
-                myGameArea.context.fillText('Boa! Foco nos seus objetivos!', 30, 470);
+            if (boy.crashWith(myGameArea.myObstacles[i])) {
+                myGameArea.score += myGameArea[myGameArea.myObstacles[i].type];
+                myGameArea.myObstacles.splice(i, 1);
             }
-            if (myGameArea.score > 5 && myGameArea.score < 10 ) {
-
-                myGameArea.context.fillStyle = 'black'; 
-                myGameArea.context.font = '16px Arial';
-                myGameArea.context.fillText('Com o tempo você consegue entrar na Faculdade!', 30, 470);
+            if (myGameArea.score > 1 && myGameArea.score < 5) {
+                myGameArea.context.fillStyle = "black";
+                myGameArea.context.font = "17px Arial";
+                myGameArea.context.fillText("Boa! Foco nos seus objetivos!", 30, 470);
+            }
+            if (myGameArea.score > 5 && myGameArea.score < 10) {
+                myGameArea.context.fillStyle = "black";
+                myGameArea.context.font = "16px Arial";
+                myGameArea.context.fillText(
+                    "Com o tempo você consegue entrar na Faculdade!",
+                    30,
+                    470
+                );
             }
 
-            if (myGameArea.score > 10 && myGameArea.score < 15 ) {
-
-                myGameArea.context.fillStyle = 'black'; 
-                myGameArea.context.font = '16px Arial';
-                myGameArea.context.fillText('Cuidado não pense em desistir agora!', 30, 470);
+            if (myGameArea.score > 10 && myGameArea.score < 15) {
+                myGameArea.context.fillStyle = "black";
+                myGameArea.context.font = "16px Arial";
+                myGameArea.context.fillText(
+                    "Cuidado não pense em desistir agora!",
+                    30,
+                    470
+                );
             }
-            if (myGameArea.score > 15 && myGameArea.score < 20 ) {
-
-                myGameArea.context.fillStyle = 'black'; 
-                myGameArea.context.font = '16px Arial';
-                myGameArea.context.fillText('Você está cansado mas o amanhã será melhor!', 30, 470);
+            if (myGameArea.score > 15 && myGameArea.score < 20) {
+                myGameArea.context.fillStyle = "black";
+                myGameArea.context.font = "16px Arial";
+                myGameArea.context.fillText(
+                    "Você está cansado mas o amanhã será melhor!",
+                    30,
+                    470
+                );
             }
-            if (myGameArea.score > 20 && myGameArea.score < 30 ) {
-
-                myGameArea.context.fillStyle = 'black'; 
-                myGameArea.context.font = '16px Arial';
-                myGameArea.context.fillText('Você está evoluindo muito, até foi promovido!', 30, 470);
+            if (myGameArea.score > 20 && myGameArea.score < 30) {
+                myGameArea.context.fillStyle = "black";
+                myGameArea.context.font = "16px Arial";
+                myGameArea.context.fillText(
+                    "Você está evoluindo muito, até foi promovido!",
+                    30,
+                    470
+                );
             }
-            if (myGameArea.score > 20 && myGameArea.score < 30 ) {
-
-                myGameArea.context.fillStyle = 'black'; 
-                myGameArea.context.font = '16px Arial';
-                myGameArea.context.fillText('Você está ganhando muito conhecimento!', 30, 470);
+            if (myGameArea.score > 30 && myGameArea.score < 40) {
+                myGameArea.context.fillStyle = "black";
+                myGameArea.context.font = "16px Arial";
+                myGameArea.context.fillText(
+                    "Você está ganhando muito conhecimento!",
+                    30,
+                    470
+                );
             }
-            if (myGameArea.score <= 0) { 
-
-                
+            if (myGameArea.score <= 0) {
                 myGameArea.gameOver();
-                break
+                break;
             }
-                    
-              
-            }
-         }
-
-   
-   
+        }
+    }
 
     function updateGameArea() {
-    
         background.move();
         background.draw();
         myGameArea.frames += 1;
@@ -80,33 +89,35 @@ window.onload = function () {
         
     }
 
-    
-
-
     function updateObstacles() {
-        let problem = ['criminalidade', 'desigualdade', 'preconceito', 'cash', 'estudo']
+        let problem = [
+            "criminalidade",
+            "desigualdade",
+            "preconceito",
+            "cash",
+            "estudo",
+        ];
 
         if (myGameArea.frames % 50 === 0) {
-            let randomProblem = Math.floor(Math.random() * problem.length)
+            let randomProblem = Math.floor(Math.random() * problem.length);
             // console.log(randomProblem)
             let minPos = 110;
             let maxPos = 390;
-            let pos = Math.floor(Math.random() * (maxPos - minPos) + minPos)
-            myGameArea.myObstacles.push(new Obstaculo(problem[randomProblem], 800, pos))
-           
+            let pos = Math.floor(Math.random() * (maxPos - minPos) + minPos);
+            myGameArea.myObstacles.push(
+                new Obstaculo(problem[randomProblem], 800, pos)
+            );
         }
 
-        myGameArea.myObstacles.forEach(pbm => {
-            pbm.move()
-            pbm.draw()
+        myGameArea.myObstacles.forEach((pbm) => {
+            pbm.move();
+            pbm.draw();
             // console.log(pbm.type)
         });
-
-
     }
-    //to organize here 
+    //to organize here
     const myGameArea = {
-        canvas: document.querySelector('#quadro'),
+        canvas: document.querySelector("#quadro"),
         // pontuações iniciais
         estudo: 2,
         cash: 2,
@@ -116,46 +127,64 @@ window.onload = function () {
         myObstacles: [],
         frames: 0,
         level: 1,
-        score:1,
+        score: 1,
         start: function () {
-            this.context = this.canvas.getContext('2d');
+            this.context = this.canvas.getContext("2d");
             this.canvas.width = 800;
             this.canvas.height = 500;
             background.draw();
-            setInterval(updateGameArea, 100)
+            setInterval(updateGameArea, 100);
         },
 
         stop: function () {
             clearInterval(myGameArea.context);
-            setTimeout(this.gameOver)
+            setTimeout(this.gameOver);
         },
 
         clear: function () {
             this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
         },
-        
-        counting: function (){ 
-            
-            this.context.fillStyle = '#343a40'; 
-            this.context.font = '38px Arial'; 
+
+        counting: function () {
+            this.context.fillStyle = "#343a40";
+            this.context.font = "38px Arial";
             this.context.fillText(`Life: ${this.score}`, 650, 450);
+        },
 
-        }, 
-
-        gameOver: function (){
+        gameOver: function () {
             myGameArea.clear();
-        myGameArea.context.textAlign = 'center'
-        myGameArea.context.fillStyle = 'black'; 
-        myGameArea.context.fillRect(0, 0, myGameArea.canvas.width, myGameArea.canvas.height);
-        myGameArea.context.fillStyle = 'red'; 
-        myGameArea.context.font = '24px Arial';
-        myGameArea.context.fillText('GAME OVER',myGameArea.canvas.width/2, myGameArea.canvas.height* 2/10);
-        myGameArea.context.fillText('Você acabou perdendo sua única chance,',myGameArea.canvas.width/2, myGameArea.canvas.height *4/10);
-        myGameArea.context.fillText('assim como um jovem de periferia que perde sua vida.',myGameArea.canvas.width/2, myGameArea.canvas.height*5/10);
-        myGameArea.context.fillText('Por conta da criminalidade, preconceito ou desigualdade..',myGameArea.canvas.width/2, myGameArea.canvas.height * 6/10);    
-    }
-
-    }
+            myGameArea.context.textAlign = "center";
+            myGameArea.context.fillStyle = "black";
+            myGameArea.context.fillRect(
+                0,
+                0,
+                myGameArea.canvas.width,
+                myGameArea.canvas.height
+            );
+            myGameArea.context.fillStyle = "red";
+            myGameArea.context.font = "24px Arial";
+            myGameArea.context.fillText(
+                "GAME OVER",
+                myGameArea.canvas.width / 2,
+                (myGameArea.canvas.height * 2) / 10
+            );
+            myGameArea.context.fillText(
+                "Você acabou perdendo sua única chance,",
+                myGameArea.canvas.width / 2,
+                (myGameArea.canvas.height * 4) / 10
+            );
+            myGameArea.context.fillText(
+                "assim como um jovem de periferia que perde sua vida.",
+                myGameArea.canvas.width / 2,
+                (myGameArea.canvas.height * 5) / 10
+            );
+            myGameArea.context.fillText(
+                "Por conta da criminalidade, preconceito ou desigualdade..",
+                myGameArea.canvas.width / 2,
+                (myGameArea.canvas.height * 6) / 10
+            );
+        },
+    };
     // BackGround
 
     class ScrollingBackground {
@@ -179,7 +208,7 @@ window.onload = function () {
             }
         }
     }
-    const background = new ScrollingBackground('/images_mdm/back.png')
+    const background = new ScrollingBackground("/images_mdm/back.png");
 
     // Menino do morro
 
@@ -195,39 +224,53 @@ window.onload = function () {
             this.y = 200;
             this.width = width;
             this.height = height;
-            this.speed = 10
+            this.speed = 10;
         }
         draw() {
-
-            if(myGameArea.score > 0 && myGameArea.score <= 11 ) { 
-            myGameArea.context.drawImage(this.img1, this.x, this.y, this.width, this.height);
+            if (myGameArea.score > 0 && myGameArea.score <= 11) {
+                myGameArea.context.drawImage(
+                    this.img1,
+                    this.x,
+                    this.y,
+                    this.width,
+                    this.height
+                );
             }
 
-            if(myGameArea.score > 11 && myGameArea.score <= 21 ) { 
-                myGameArea.context.drawImage(this.img2, this.x, this.y, this.width, this.height);
-                }
-                if(myGameArea.score > 21 && myGameArea.score < 100 ) { 
-                    myGameArea.context.drawImage(this.img3, this.x, this.y, this.width, this.height);
-                    }
+            if (myGameArea.score > 11 && myGameArea.score <= 21) {
+                myGameArea.context.drawImage(
+                    this.img2,
+                    this.x,
+                    this.y,
+                    this.width,
+                    this.height
+                );
+            }
+            if (myGameArea.score > 21 && myGameArea.score < 100) {
+                myGameArea.context.drawImage(
+                    this.img3,
+                    this.x,
+                    this.y,
+                    this.width,
+                    this.height
+                );
+            }
         }
 
         moveRight() {
             if (this.x < myGameArea.canvas.width - this.width) {
                 this.x += this.speed;
             }
-
         }
         moveLeft() {
             if (this.x > 0) {
                 this.x -= this.speed;
             }
-
         }
         moveUp() {
             if (this.y > 110) {
                 this.y -= this.speed;
             }
-
         }
         moveDown() {
             if (this.y < 390) {
@@ -252,19 +295,25 @@ window.onload = function () {
         }
 
         crashWith(obst) {
-            return !(this.top() > obst.bottom() ||
+            return !(
+                this.top() > obst.bottom() ||
                 this.bottom() < obst.top() ||
                 this.left() > obst.right() ||
-                this.right() < obst.left())
-            }
-
+                this.right() < obst.left()
+            );
+        }
     }
 
-    // 
-    const boy = new Menino('images_mdm/car1.png', 'images_mdm/car2.png', 'images_mdm/car3.png', 120, 160)
+    //
+    const boy = new Menino(
+        "images_mdm/car1.png",
+        "images_mdm/car2.png",
+        "images_mdm/car3.png",
+        110,
+        150
+    );
 
-
-    document.addEventListener('keydown', (e) => {
+    document.addEventListener("keydown", (e) => {
         switch (e.keyCode) {
             case 87: // up arrow
                 boy.moveUp();
@@ -294,37 +343,62 @@ window.onload = function () {
         // problemas
         draw() {
             if (this.type === "criminalidade") {
-
-                this.criminalidade = new Image()
-                this.criminalidade.src = 'images_mdm/problemas/criminalidade.png';
-                myGameArea.context.drawImage(this.criminalidade, this.x, this.y, this.width, this.height)
+                this.criminalidade = new Image();
+                this.criminalidade.src = "images_mdm/problemas/criminalidade.png";
+                myGameArea.context.drawImage(
+                    this.criminalidade,
+                    this.x,
+                    this.y,
+                    this.width,
+                    this.height
+                );
             }
 
             if (this.type === "desigualdade") {
-
-                this.desigualdade = new Image()
-                this.desigualdade.src = 'images_mdm/problemas/desigualdade.png';
-                myGameArea.context.drawImage(this.desigualdade, this.x, this.y, this.width, this.height)
+                this.desigualdade = new Image();
+                this.desigualdade.src = "images_mdm/problemas/desigualdade.png";
+                myGameArea.context.drawImage(
+                    this.desigualdade,
+                    this.x,
+                    this.y,
+                    this.width,
+                    this.height
+                );
             }
 
             if (this.type === "preconceito") {
-
-                this.preconceito = new Image()
-                this.preconceito.src = 'images_mdm/problemas/preconceito.png';
-                myGameArea.context.drawImage(this.preconceito, this.x, this.y, this.width, this.height)
+                this.preconceito = new Image();
+                this.preconceito.src = "images_mdm/problemas/preconceito.png";
+                myGameArea.context.drawImage(
+                    this.preconceito,
+                    this.x,
+                    this.y,
+                    this.width,
+                    this.height
+                );
             }
             // Ìcones
             if (this.type === "cash") {
-
-                this.cash = new Image()
-                this.cash.src = 'images_mdm/icones/cash.png';
-                myGameArea.context.drawImage(this.cash, this.x, this.y, this.width, this.height)
+                this.cash = new Image();
+                this.cash.src = "images_mdm/icones/cash.png";
+                myGameArea.context.drawImage(
+                    this.cash,
+                    this.x,
+                    this.y,
+                    this.width,
+                    this.height
+                );
             }
             if (this.type === "estudo") {
-
-                this.estudo = new Image()
-                this.estudo.src = 'images_mdm/icones/estudo.png';
-                myGameArea.context.drawImage(this.estudo, this.x, this.y, this.width, this.height)
+                this.estudo = new Image();
+                this.estudo.src = "images_mdm/icones/estudo.png";
+                myGameArea.context.drawImage(
+                    this.estudo,
+                    this.x,
+                    this.y,
+                    this.width,
+                    this.height
+                );
             }
         }
 
@@ -349,15 +423,43 @@ window.onload = function () {
         right() {
             return this.x + this.width;
         }
+    }
 
-        
-        }
+    function Sound(source, volume, loop) {
+        this.source = source;
+        this.volume = volume;
+        this.loop = loop;
+        var son;
+        this.son = son;
+        this.finish = false;
+        this.stop = function () {
+            document.body.removeChild(this.son);
+        };
+        this.start = function () {
+            if (this.finish) return false;
+            this.son = document.createElement("embed");
+            this.son.setAttribute("src", this.source);
+            this.son.setAttribute("hidden", "true");
+            this.son.setAttribute("volume", this.volume);
+            this.son.setAttribute("autostart", "true");
+            this.son.setAttribute("loop", this.loop);
+            document.body.appendChild(this.son);
+        };
+        this.remove = function () {
+            document.body.removeChild(this.son);
+            this.finish = true;
+        };
+        this.init = function (volume, loop) {
+            this.finish = false;
+            this.volume = volume;
+            this.loop = loop;
+        };
+    }
+    const foo = new Sound("audio/levantaeanda.wav", 100, true);
+           
+};
 
-
-    };
-
-    // Entender detecção por borda da imagem para criar impacto (crash with) e fazer sumir de acordo com cada objeto e somar/subtrair no score
-    // Criar função para Score
-    // Crio uma função que verifica o score e partindo de um determinado valor ele apresenta um push sendo imagem ou texto (em uma determinada area do jogo)
-    // A mudança de roupa ou personagem pode estar condicionada as mensagens
-
+// Entender detecção por borda da imagem para criar impacto (crash with) e fazer sumir de acordo com cada objeto e somar/subtrair no score
+// Criar função para Score
+// Crio uma função que verifica o score e partindo de um determinado valor ele apresenta um push sendo imagem ou texto (em uma determinada area do jogo)
+// A mudança de roupa ou personagem pode estar condicionada as mensagens
