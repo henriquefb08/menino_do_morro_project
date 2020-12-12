@@ -1,11 +1,7 @@
 window.onload = function () {
     document.getElementById("start-button").onclick = function () {
         startGame();
-        foo.start();
-        foo.stop();
-        foo.start();
-        foo.init(100, false);
-        foo.remove();
+  
     };
     // funnções bases
     function startGame() {
@@ -80,14 +76,16 @@ window.onload = function () {
                 );
             }
             if (myGameArea.score <= 0) {
+                myGameArea.stop();
                 myGameArea.gameOver();
-                break;
+                
             }
 
         }
     }
 
     function updateGameArea() {
+        myGameArea.clear();
         background.move();
         background.draw();
         myGameArea.frames += 1;
@@ -143,12 +141,12 @@ window.onload = function () {
             this.canvas.width = 800;
             this.canvas.height = 500;
             background.draw();
-            setInterval(updateGameArea, 100);
+            this.interval = setInterval(updateGameArea, 100);
         },
 
         stop: function () {
-            clearInterval(myGameArea.context);
-            setTimeout(this.gameOver);
+            clearInterval(this.interval);
+            audioMusic.pause();
         },
 
         clear: function () {
@@ -219,7 +217,7 @@ window.onload = function () {
             }
         }
     }
-    const background = new ScrollingBackground("/images_mdm/back.png");
+    const background = new ScrollingBackground("./images_mdm/back.png");
 
     // Menino do morro
 
