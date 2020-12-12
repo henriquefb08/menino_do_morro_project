@@ -1,7 +1,7 @@
 window.onload = function () {
     document.getElementById("start-button").onclick = function () {
         startGame();
-  
+
     };
     // funnções bases
     function startGame() {
@@ -78,12 +78,12 @@ window.onload = function () {
             if (myGameArea.score <= 0) {
                 myGameArea.stop();
                 myGameArea.gameOver();
-                
+
             }
             if (myGameArea.score >= 30) {
                 myGameArea.stop();
                 myGameArea.youWin();
-                
+
             }
 
         }
@@ -147,10 +147,10 @@ window.onload = function () {
             this.canvas.height = 500;
             background.draw();
 
-            if (this.interval === undefined) { 
+            if (this.interval === undefined) {
                 this.interval = setInterval(updateGameArea, 40);
             }
-    },
+        },
 
         stop: function () {
             clearInterval(this.interval);
@@ -178,36 +178,14 @@ window.onload = function () {
                 myGameArea.canvas.width,
                 myGameArea.canvas.height
             );
-            myGameArea.context.fillStyle = "red";
-            myGameArea.context.font = "24px Arial";
-            myGameArea.context.fillText(
-                "GAME OVER",
-                myGameArea.canvas.width / 2,
-                (myGameArea.canvas.height * 2) / 10
-            );
-            myGameArea.context.fillText(
-                "Você acabou perdendo sua única chance,",
-                myGameArea.canvas.width / 2,
-                (myGameArea.canvas.height * 4) / 10
-            );
-            myGameArea.context.fillText(
-                "assim como um jovem de periferia que perde sua vida.",
-                myGameArea.canvas.width / 2,
-                (myGameArea.canvas.height * 5) / 10
-            );
-            myGameArea.context.fillText(
-                "Por conta da criminalidade, preconceito ou desigualdade..",
-                myGameArea.canvas.width / 2,
-                (myGameArea.canvas.height * 6) / 10
-            );
-            myGameArea.context.fillText(
-                "*Diferente dele você pode recomeçar em instantes!",
-                myGameArea.canvas.width / 2,
-                (myGameArea.canvas.height * 8) / 10
-            );
+            const lose = new Image();
+            lose.src = "./images_mdm/page/gameOver.png";
+            lose.onload = function () {
+                myGameArea.context.drawImage(lose, 0, 0, 800, 500)
+            }
         },
 
-        youWin: function () { 
+        youWin: function () {
             myGameArea.clear();
             setTimeout(reload, 10000)
             myGameArea.context.textAlign = "center";
@@ -218,38 +196,15 @@ window.onload = function () {
                 myGameArea.canvas.width,
                 myGameArea.canvas.height
             );
-            myGameArea.context.fillStyle = "red";
-            myGameArea.context.font = "24px Arial";
-            myGameArea.context.fillText(
-                "FAVELA VENCEU!",
-                myGameArea.canvas.width / 2,
-                (myGameArea.canvas.height * 2) / 10
-            );
-            myGameArea.context.fillText(
-                "A felicidade do menino do morro você consegue sentir agora!",
-                myGameArea.canvas.width / 2,
-                (myGameArea.canvas.height * 4) / 10
-            );
-            myGameArea.context.fillText(
-                "Você conseguiu escapar da desigualdade, preconceito e criminalidade!",
-                myGameArea.canvas.width / 2,
-                (myGameArea.canvas.height * 5) / 10
-            );
+            const win = new Image();
+            win.src = "./images_mdm/page/favelaVenceu.png";
+            win.onload = function () {
+                myGameArea.context.drawImage(win, 0, 0, 800, 500)
+            }
 
-            myGameArea.context.fillText(
-                "Parabéns, é difícil fazer isso na quebrada!",
-                myGameArea.canvas.width / 2,
-                (myGameArea.canvas.height * 6) / 10
-            );
-            myGameArea.context.fillText(
-                "*Diferente dele você pode recomeçar em instantes!",
-                myGameArea.canvas.width / 2,
-                (myGameArea.canvas.height * 8) / 10
-            );
-            
         }
 
-        
+
     };
     // BackGround
 
