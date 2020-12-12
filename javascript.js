@@ -141,8 +141,11 @@ window.onload = function () {
             this.canvas.width = 800;
             this.canvas.height = 500;
             background.draw();
-            this.interval = setInterval(updateGameArea, 100);
-        },
+
+            if (this.interval === undefined) { 
+                this.interval = setInterval(updateGameArea, 40);
+            }
+    },
 
         stop: function () {
             clearInterval(this.interval);
@@ -191,6 +194,11 @@ window.onload = function () {
                 "Por conta da criminalidade, preconceito ou desigualdade..",
                 myGameArea.canvas.width / 2,
                 (myGameArea.canvas.height * 6) / 10
+            );
+            myGameArea.context.fillText(
+                "*Diferente dele você pode recomeçar em instantes!",
+                myGameArea.canvas.width / 2,
+                (myGameArea.canvas.height * 8) / 10
             );
         },
     };
@@ -470,6 +478,7 @@ window.onload = function () {
     const audioMusic = new Audio();
     audioMusic.src = "audio/levantaeanda.wav";
     audioMusic.volume = 0.07;
+    audioMusic.loop = true
 
     const coinMusic = new Audio();
     coinMusic.src = "audio/coleta.mp3";
