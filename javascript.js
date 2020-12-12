@@ -80,6 +80,11 @@ window.onload = function () {
                 myGameArea.gameOver();
                 
             }
+            if (myGameArea.score >= 30) {
+                myGameArea.stop();
+                myGameArea.youWin();
+                
+            }
 
         }
     }
@@ -164,7 +169,7 @@ window.onload = function () {
 
         gameOver: function () {
             myGameArea.clear();
-            setTimeout(reload, 10000)
+            setTimeout(reload, 12000)
             myGameArea.context.textAlign = "center";
             myGameArea.context.fillStyle = "black";
             myGameArea.context.fillRect(
@@ -201,6 +206,50 @@ window.onload = function () {
                 (myGameArea.canvas.height * 8) / 10
             );
         },
+
+        youWin: function () { 
+            myGameArea.clear();
+            setTimeout(reload, 10000)
+            myGameArea.context.textAlign = "center";
+            myGameArea.context.fillStyle = "black";
+            myGameArea.context.fillRect(
+                0,
+                0,
+                myGameArea.canvas.width,
+                myGameArea.canvas.height
+            );
+            myGameArea.context.fillStyle = "red";
+            myGameArea.context.font = "24px Arial";
+            myGameArea.context.fillText(
+                "FAVELA VENCEU!",
+                myGameArea.canvas.width / 2,
+                (myGameArea.canvas.height * 2) / 10
+            );
+            myGameArea.context.fillText(
+                "A felicidade do menino do morro você consegue sentir agora!",
+                myGameArea.canvas.width / 2,
+                (myGameArea.canvas.height * 4) / 10
+            );
+            myGameArea.context.fillText(
+                "Você conseguiu escapar da desigualdade, preconceito e criminalidade!",
+                myGameArea.canvas.width / 2,
+                (myGameArea.canvas.height * 5) / 10
+            );
+
+            myGameArea.context.fillText(
+                "Parabéns, é difícil fazer isso na quebrada!",
+                myGameArea.canvas.width / 2,
+                (myGameArea.canvas.height * 6) / 10
+            );
+            myGameArea.context.fillText(
+                "*Diferente dele você pode recomeçar em instantes!",
+                myGameArea.canvas.width / 2,
+                (myGameArea.canvas.height * 8) / 10
+            );
+            
+        }
+
+        
     };
     // BackGround
 
@@ -477,16 +526,16 @@ window.onload = function () {
 
     const audioMusic = new Audio();
     audioMusic.src = "audio/levantaeanda.wav";
-    audioMusic.volume = 0.07;
+    audioMusic.volume = 0.06;
     audioMusic.loop = true
 
     const coinMusic = new Audio();
     coinMusic.src = "audio/coleta.mp3";
-    coinMusic.volume = 0.08;
+    coinMusic.volume = 0.07;
 
     const coinMusicNegative = new Audio();
     coinMusicNegative.src = "audio/badcoin.mp3";
-    coinMusicNegative.volume = 0.08;
+    coinMusicNegative.volume = 0.07;
 };
 
 function reload() {
