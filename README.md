@@ -21,8 +21,7 @@ Slides - clique [aqui](https://slides.com/fabiohfsousa/meninodomorro_game/fullsc
 
 ## Controle de movimentação
 
-- W, A, S, D
-- Arrow Keys: :arrow_left:, :arrow_up:, :arrow_right:, :arrow_down:
+A = :arrow_left:, W = :arrow_up:, D = :arrow_right:, S = :arrow_down:
 
 ---
 
