@@ -32,6 +32,8 @@ Clique [aqui](https://henriquefb08.github.io/menino_do_morro_project/) para joga
 - Tom dos ícones coletados
 - Movimentação do cenário
 - Game Over e Vitória
+- Pushs de mensagens motivacionais
+- Contagem de score
 
 ---
  
