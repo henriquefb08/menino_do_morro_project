@@ -4,9 +4,10 @@
 
 (Meu projeto do Módulo I - IronHack)
  
-![Start Screen](./images_mdm/menino_.PNG)
+![Start Screen](./images_mdm/menino.png)
 
 Clique [aqui](https://henriquefb08.github.io/menino_do_morro_project/) para jogar **Menino do Morro - Game**  :boom:
+
 Slides - clique [aqui](https://slides.com/fabiohfsousa/meninodomorro_game/fullscreen) para ver apresentação do projeto
 
 ---
