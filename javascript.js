@@ -1,24 +1,29 @@
 window.onload = function () {
     document.getElementById("start-button").onclick = function () {
         startGame();
-        foo.start();
-        foo.stop();
-        foo.start();
-        foo.init(100, false);
-        foo.remove();
+
     };
     // funnções bases
     function startGame() {
         myGameArea.start();
-        
+        audioMusic.play();
+
     }
 
     function checkImpact() {
         for (let i = 0; i < myGameArea.myObstacles.length; i += 1) {
             if (boy.crashWith(myGameArea.myObstacles[i])) {
                 myGameArea.score += myGameArea[myGameArea.myObstacles[i].type];
+                if (myGameArea[myGameArea.myObstacles[i].type] < 0) {
+                    coinMusicNegative.play();
+                } else {
+                    coinMusic.play();
+                }
                 myGameArea.myObstacles.splice(i, 1);
+
+
             }
+
             if (myGameArea.score > 1 && myGameArea.score < 5) {
                 myGameArea.context.fillStyle = "black";
                 myGameArea.context.font = "17px Arial";
@@ -71,13 +76,21 @@ window.onload = function () {
                 );
             }
             if (myGameArea.score <= 0) {
+                myGameArea.stop();
                 myGameArea.gameOver();
-                break;
+
             }
+            if (myGameArea.score >= 30) {
+                myGameArea.stop();
+                myGameArea.youWin();
+
+            }
+
         }
     }
 
     function updateGameArea() {
+        myGameArea.clear();
         background.move();
         background.draw();
         myGameArea.frames += 1;
@@ -85,8 +98,8 @@ window.onload = function () {
         boy.draw();
         myGameArea.counting();
         checkImpact();
-        
-        
+
+
     }
 
     function updateObstacles() {
@@ -133,12 +146,15 @@ window.onload = function () {
             this.canvas.width = 800;
             this.canvas.height = 500;
             background.draw();
-            setInterval(updateGameArea, 100);
+
+            if (this.interval === undefined) {
+                this.interval = setInterval(updateGameArea, 40);
+            }
         },
 
         stop: function () {
-            clearInterval(myGameArea.context);
-            setTimeout(this.gameOver);
+            clearInterval(this.interval);
+            audioMusic.pause();
         },
 
         clear: function () {
@@ -153,6 +169,7 @@ window.onload = function () {
 
         gameOver: function () {
             myGameArea.clear();
+            setTimeout(reload, 12000)
             myGameArea.context.textAlign = "center";
             myGameArea.context.fillStyle = "black";
             myGameArea.context.fillRect(
@@ -161,29 +178,33 @@ window.onload = function () {
                 myGameArea.canvas.width,
                 myGameArea.canvas.height
             );
-            myGameArea.context.fillStyle = "red";
-            myGameArea.context.font = "24px Arial";
-            myGameArea.context.fillText(
-                "GAME OVER",
-                myGameArea.canvas.width / 2,
-                (myGameArea.canvas.height * 2) / 10
-            );
-            myGameArea.context.fillText(
-                "Você acabou perdendo sua única chance,",
-                myGameArea.canvas.width / 2,
-                (myGameArea.canvas.height * 4) / 10
-            );
-            myGameArea.context.fillText(
-                "assim como um jovem de periferia que perde sua vida.",
-                myGameArea.canvas.width / 2,
-                (myGameArea.canvas.height * 5) / 10
-            );
-            myGameArea.context.fillText(
-                "Por conta da criminalidade, preconceito ou desigualdade..",
-                myGameArea.canvas.width / 2,
-                (myGameArea.canvas.height * 6) / 10
-            );
+            const lose = new Image();
+            lose.src = "./images_mdm/page/gameOver.png";
+            lose.onload = function () {
+                myGameArea.context.drawImage(lose, 0, 0, 800, 500)
+            }
         },
+
+        youWin: function () {
+            myGameArea.clear();
+            setTimeout(reload, 10000)
+            myGameArea.context.textAlign = "center";
+            myGameArea.context.fillStyle = "black";
+            myGameArea.context.fillRect(
+                0,
+                0,
+                myGameArea.canvas.width,
+                myGameArea.canvas.height
+            );
+            const win = new Image();
+            win.src = "./images_mdm/page/favelaVenceu.png";
+            win.onload = function () {
+                myGameArea.context.drawImage(win, 0, 0, 800, 500)
+            }
+
+        }
+
+
     };
     // BackGround
 
@@ -208,7 +229,7 @@ window.onload = function () {
             }
         }
     }
-    const background = new ScrollingBackground("/images_mdm/back.png");
+    const background = new ScrollingBackground("./images_mdm/back.png");
 
     // Menino do morro
 
@@ -409,19 +430,19 @@ window.onload = function () {
         // Bordas dos objetos
 
         top() {
-            return this.y;
+            return this.y + 40;
         }
 
         bottom() {
-            return this.y + this.height;
+            return this.y + this.height - 30;
         }
 
         left() {
-            return this.x;
+            return this.x + 10;
         }
 
         right() {
-            return this.x + this.width;
+            return this.x + this.width - 10;
         }
     }
 
@@ -456,10 +477,22 @@ window.onload = function () {
         };
     }
     const foo = new Sound("audio/levantaeanda.wav", 100, true);
-           
+
+
+    const audioMusic = new Audio();
+    audioMusic.src = "audio/levantaeanda.wav";
+    audioMusic.volume = 0.06;
+    audioMusic.loop = true
+
+    const coinMusic = new Audio();
+    coinMusic.src = "audio/coleta.mp3";
+    coinMusic.volume = 0.07;
+
+    const coinMusicNegative = new Audio();
+    coinMusicNegative.src = "audio/badcoin.mp3";
+    coinMusicNegative.volume = 0.07;
 };
 
-// Entender detecção por borda da imagem para criar impacto (crash with) e fazer sumir de acordo com cada objeto e somar/subtrair no score
-// Criar função para Score
-// Crio uma função que verifica o score e partindo de um determinado valor ele apresenta um push sendo imagem ou texto (em uma determinada area do jogo)
-// A mudança de roupa ou personagem pode estar condicionada as mensagens
+function reload() {
+    window.location.reload(false);
+}
