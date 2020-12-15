@@ -29,7 +29,7 @@ Slides - clique [aqui](https://slides.com/fabiohfsousa/meninodomorro_game/fullsc
 
 - ìcones coletáveis dando pontos positívos ou negativos
 - Movimentação do personagem
-- Música (Levanta e Anda do Emicida
+- Música (Levanta e Anda ~Emicida)
 - Tom dos ícones coletados
 - Movimentação do cenário
 - Game Over e Vitória
